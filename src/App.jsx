@@ -3,9 +3,9 @@ import './App.css';
 import { Menu } from './components/Menu.jsx';
 import { Orders } from './components/Orders.jsx';
 import { LoginForm } from './components/LoginForm.jsx';
-import { RegisterForm } from './components/RegisterForm.jsx';  // Asegúrate de importar el formulario de registro
+import { RegisterForm } from './components/RegisterForm.jsx';
 import { Header } from './components/Header.jsx';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';  // Importar el Router
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';  // Importamos Navigate
 
 function App() {
   const [isAdmin, setIsAdmin] = useState(false);
@@ -25,7 +25,7 @@ function App() {
   }, [isAuthenticated]);
 
   return (
-    <Router>  {/* Agregamos Router para manejar las rutas */}
+    <Router>
       <div>
         {isAuthenticated && (
           <Header 
@@ -36,25 +36,32 @@ function App() {
           />
         )}
 
-        <Routes> {/* Definimos las rutas dentro de Routes */}
-          {/* Ruta para el inicio de sesión */}
-          <Route path="/login" element={
-            <LoginForm
-              isAuthenticated={isAuthenticated}
-              setIsAuthenticated={setIsAuthenticated}
-            />
-          } />
-
-          {/* Ruta para el registro */}
-          <Route path="/signup" element={
-            <RegisterForm
-              isAuthenticated={isAuthenticated}
-              setIsAuthenticated={setIsAuthenticated}
-            />
-          } />
-
-          {/* Ruta principal, cuando está autenticado */}
+        <Routes>
+          {/* Ruta para el login (también estará disponible en "/login") */}
           <Route path="/" element={
+            isAuthenticated ? (
+              <Navigate to="/dashboard" />  // Redirige a /dashboard si ya está autenticado
+            ) : (
+              <LoginForm
+                isAuthenticated={isAuthenticated}
+                setIsAuthenticated={setIsAuthenticated}
+              />
+            )
+          } />
+
+          <Route path="/login" element={
+            isAuthenticated ? (
+              <Navigate to="/dashboard" />  // Redirige a /dashboard si ya está autenticado
+            ) : (
+              <LoginForm
+                isAuthenticated={isAuthenticated}
+                setIsAuthenticated={setIsAuthenticated}
+              />
+            )
+          } />
+
+          {/* Ruta para el dashboard (menú) */}
+          <Route path="/dashboard" element={
             isAuthenticated ? (
               <div className='container mx-auto px-4'>
                 {isAdmin ? (
@@ -67,11 +74,16 @@ function App() {
                 )}
               </div>
             ) : (
-              <LoginForm
-                isAuthenticated={isAuthenticated}
-                setIsAuthenticated={setIsAuthenticated}
-              />
+              <Navigate to="/login" />  // Redirige al login si no está autenticado
             )
+          } />
+
+          {/* Ruta para el registro */}
+          <Route path="/signup" element={
+            <RegisterForm
+              isAuthenticated={isAuthenticated}
+              setIsAuthenticated={setIsAuthenticated}
+            />
           } />
         </Routes>
       </div>

@@ -1,20 +1,24 @@
 import React, { useState } from 'react';
 import { loginUser } from '../services/auth';
-import loginBg from '../images/login-bg.jpg';  // Aquí importas la imagen de fondo
-import eyeOpen from '../images/eye-open.png'; // Imagen para el ojo abierto
-import eyeClosed from '../images/eye-closed.png'; // Imagen para el ojo cerrado
+import loginBg from '../images/login-bg.jpg';
+import eyeOpen from '../images/eye-open.png';
+import eyeClosed from '../images/eye-closed.png';
+import { useNavigate } from 'react-router-dom';  // Importar useNavigate
 
 export const LoginForm = ({ isAuthenticated, setIsAuthenticated }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState(null);
-    const [showPassword, setShowPassword] = useState(false); // Estado para mostrar/ocultar la contraseña
+    const [showPassword, setShowPassword] = useState(false);
+    const navigate = useNavigate();  // Inicializa el hook de navegación
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         const { user, error } = await loginUser(email, password);
         if (user) {
             setIsAuthenticated(true);
+            localStorage.setItem('isAuthenticated', 'true');  // Guarda el estado en el localStorage
+            navigate('/dashboard');  // Redirige al usuario a /dashboard después de iniciar sesión
         }
         if (error) {
             setError(error);
@@ -25,7 +29,7 @@ export const LoginForm = ({ isAuthenticated, setIsAuthenticated }) => {
         <div
             className="login-container"
             style={{
-                backgroundImage: `url(${loginBg})`,  // Fondo con la imagen importada
+                backgroundImage: `url(${loginBg})`,
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
                 minHeight: '100vh',
@@ -64,21 +68,20 @@ export const LoginForm = ({ isAuthenticated, setIsAuthenticated }) => {
                     </div>
                     <div className="form-group relative">
                         <input
-                            type={showPassword ? 'text' : 'password'}  // Alterna entre "text" y "password"
+                            type={showPassword ? 'text' : 'password'}
                             required
                             className="input-field"
                             placeholder="Contraseña"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                         />
-                        {/* Botón de mostrar/ocultar contraseña */}
                         <button
                             type="button"
                             className="absolute right-4 top-2 button-see-password"
-                            onClick={() => setShowPassword(prev => !prev)} // Alterna el estado
+                            onClick={() => setShowPassword(prev => !prev)}
                         >
                             <img
-                                src={showPassword ? eyeClosed : eyeOpen} // Cambia la imagen según el estado
+                                src={showPassword ? eyeClosed : eyeOpen}
                                 alt="Mostrar/Ocultar contraseña"
                             />
                         </button>
