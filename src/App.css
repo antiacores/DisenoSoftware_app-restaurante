@@ -1,3 +1,53 @@
+/* HEADER */
+
+header {
+  background-color: #EAE6CA;
+  width: 100%;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+}
+
+.header-logo-image {
+  width: 70px;
+  height: auto;
+  margin-right: 10px;
+}
+
+header h1 {
+  color: green;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+header button {
+  font-size: 1rem;
+  color: white;
+  background-color: brown;
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+header button:hover {
+  background-color: green;
+  transform: scale(1.05);
+}
+
+header button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.6);
+}
+
 #root {
   max-width: 1280px;
   margin: 0 auto;
@@ -5,38 +55,131 @@
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.logo-image {
+  width: 180px;
+  height: auto;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* LOGIN */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f4f7f6;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.login-form {
+  background-color: #ffffffdf;
+  padding: 2rem 3rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
 }
 
-.card {
-  padding: 2em;
+.login-form h2 {
+  color: #2c3e50;
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
 }
 
-.read-the-docs {
-  color: #888;
+.form-group label {
+  font-size: 1rem;
+  color: #34495e;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.form-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+  position: relative; /* Para asegurar que el botón se posicione correctamente */
+}
+
+.form-group input {
+  width: 100%;
+  padding: 12px 15px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  transition: border 0.3s ease, box-shadow 0.3s ease;
+  box-sizing: border-box; /* Para evitar que el padding cambie el tamaño */
+}
+
+.form-group input:focus {
+  border-color: #3498db;
+  box-shadow: 0 0 5px rgba(52, 152, 219, 0.3);
+  outline: none;
+}
+
+.login-btn {
+  background-color: #17611a;
+  color: white;
+  font-size: 1.2rem;
+  padding: 0.8rem;
+  width: 100%;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.login-btn:hover {
+  background-color: #114212;
+  transform: scale(1.05);
+}
+
+.signup-link {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: #26822b;
+}
+
+.signup-link a {
+  color: #1d551f;
+  text-decoration: none;
+}
+
+.signup-link a:hover {
+  text-decoration: underline;
+}
+
+.login-form input[type="text"],
+.login-form input[type="password"] {
+  width: 100%;
+  padding: 12px 15px;
+  margin: 10px 0 20px 0;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  transition: border 0.3s ease, box-shadow 0.3s ease;
+  position: relative; /* Asegura que el botón esté posicionado respecto a este contenedor */
+}
+
+.login-form input[type="text"]:focus,
+.login-form input[type="password"]:focus {
+  border-color: #3498db;
+  box-shadow: 0 0 5px rgba(52, 152, 219, 0.3);
+  outline: none;
+}
+
+.button-see-password {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  position: absolute;
+  right: 10px;  /* Ajusta esta posición según lo necesites */
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+}
+
+.button-see-password img {
+  width: 20px; 
+  height: auto;
 }
